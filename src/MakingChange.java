@@ -9,29 +9,31 @@ import java.util.ArrayList;
  */
 
 public class MakingChange {
-    /**
-     * TODO: Complete this function, countWays(), to return the number of ways to make change
-     *  for any given total with any given set of coins.
-     */
+
     public static long countWays(int target, int[] coins) {
 
-        ArrayList<Integer> solutions = new ArrayList<Integer>();
-        return 0;
+        long[][] counts = new long[coins.length][target + 1];
+        long solution = findSolution(coins, target, counts, coins.length - 1);
+        return solution;
     }
 
-    public static ArrayList<Integer> findSolution(int target, int[] coins, ArrayList<Integer> path, int count) {
-        if (count == target) {
-            return path;
+    public static long findSolution(int[] coins, int target, long[][] counts, int index) {
+        if (target == 0) {
+            return 1;
         }
-        if (count > target) {
-            return null;
+        else if (target < 0) {
+            return 0;
         }
-        for (int i = 0; i < coins.length; i++) {
-            ArrayList<Integer> tempPath = path;
-            tempPath.add(coins[i]);
-            findSolution(target, coins, tempPath, count + coins[i]);
+        else if (index < 0) {
+            return 0;
         }
-
-        return path;
+        else if (counts[index][target] != 0) {
+            return counts[index][target];
+        }
+        int coin = coins[index];
+        long keep = findSolution(coins, target - coin, counts, index);
+        long skip = findSolution(coins, target, counts, index - 1);
+        counts[index][target] = keep + skip;
+        return counts[index][target];
     }
 }
