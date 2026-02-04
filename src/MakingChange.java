@@ -25,10 +25,8 @@ public class MakingChange {
 
 //        // Memoization solution to the problem
 //        // Base cases for if you have reached the target or past the target or there are no more coins to remove
-//        if (target == 0) {
-//            return 1;
-//        }
-//        else if (target < 0) {
+//
+//        if (target < 0) {
 //            return 0;
 //        }
 //        else if (index < 0) {
